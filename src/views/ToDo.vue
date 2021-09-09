@@ -2,13 +2,14 @@
   <v-container>
     <v-form>
       <v-text-field
+          v-model="task"
           label="Введите название дела"
           outlined
           clearable
       >
       </v-text-field>
     </v-form>
-    <v-card class="mb-5">
+    <v-card class="mb-5" v-for="task in tasks" :key="task.id">
       <v-list-item>
         <v-list-item-content>
           <v-checkbox
@@ -39,7 +40,29 @@
 <script>
 export default {
   name: "ToDo",
-
+  data() {
+    return {
+      task: "",
+      test: true,
+      tasks: [
+        {
+          id: 1,
+          title: "Salohiddin Berdiyorov Bahriddin o'g'li ekanligimdan fahirlanaman",
+          completed: false,
+        },
+        {
+          id: 2,
+          title: "First Task",
+          completed: true,
+        },
+        {
+          id: 3,
+          title: "First Task",
+          completed: false,
+        }
+      ]
+    }
+  },
 }
 </script>
 
