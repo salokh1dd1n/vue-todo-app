@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-form>
+    <v-form @submit.prevent="createTask">
       <v-text-field
           v-model="task"
           label="Введите название дела"
@@ -17,7 +17,7 @@
               class="shrink mr-2 mt-0"
           >
             <template v-slot:label>
-              <div>Task</div>
+              <div>{{ task.title }}</div>
             </template>
           </v-checkbox>
         </v-list-item-content>
@@ -47,20 +47,32 @@ export default {
       tasks: [
         {
           id: 1,
-          title: "Salohiddin Berdiyorov Bahriddin o'g'li ekanligimdan fahirlanaman",
+          title: "Task #1",
           completed: false,
         },
         {
           id: 2,
-          title: "First Task",
+          title: "Task #2",
           completed: true,
         },
         {
           id: 3,
-          title: "First Task",
+          title: "Task #3",
           completed: false,
         }
       ]
+    }
+  },
+  methods: {
+    createTask() {
+      let newTask = {
+        id: this.tasks.length + 1,
+        title: this.task,
+        completed: false
+      }
+      this.tasks.unshift(newTask)
+      localStorage.name = this.task;
+      this.task = "";
     }
   },
 }
