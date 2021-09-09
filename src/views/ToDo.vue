@@ -9,7 +9,7 @@
       >
       </v-text-field>
     </v-form>
-    <v-card class="mb-5" v-for="task in tasks" :key="task.id">
+    <v-card class="mb-5" v-for="task in tasks" :key="task.id" ref="task">
       <v-list-item>
         <v-list-item-content>
           <v-checkbox
@@ -22,7 +22,7 @@
           </v-checkbox>
         </v-list-item-content>
         <v-list-item-action>
-          <v-btn
+          <v-btn @click="removeTask(task.id)"
               color="error"
               ripple
           >
@@ -73,6 +73,10 @@ export default {
       this.tasks.unshift(newTask)
       localStorage.name = this.task;
       this.task = "";
+    },
+    removeTask(id) {
+      let item = this.tasks.findIndex(task => task.id === id);
+      this.tasks.splice(item, 1);
     }
   },
 }
