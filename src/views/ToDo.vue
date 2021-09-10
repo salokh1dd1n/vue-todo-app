@@ -13,18 +13,19 @@
       <v-list-item>
         <v-list-item-content>
           <v-checkbox
+              v-model="task.completed"
               hide-details
               class="shrink mr-2 mt-0"
           >
             <template v-slot:label>
-              <div>{{ task.title }}</div>
+              <div :class="{'text-decoration-line-through': task.completed === true}">{{ task.title }}</div>
             </template>
           </v-checkbox>
         </v-list-item-content>
         <v-list-item-action>
           <v-btn @click="removeTask(task.id)"
-              color="error"
-              ripple
+                 color="error"
+                 ripple
           >
             <v-icon color="white" left>
               mdi-trash-can
