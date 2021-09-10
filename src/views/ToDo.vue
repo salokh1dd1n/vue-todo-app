@@ -39,6 +39,7 @@
 </template>
 
 <script>
+const STORAGE_KEY = "todo-storage";
 export default {
   name: "ToDo",
   data() {
@@ -74,12 +75,20 @@ export default {
       this.tasks.unshift(newTask)
       localStorage.name = this.task;
       this.task = "";
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(this.tasks))
     },
     removeTask(id) {
       let item = this.tasks.findIndex(task => task.id === id);
       this.tasks.splice(item, 1);
-    }
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(this.tasks))
+    },
   },
+  created() {
+    this.tasks = JSON.parse(localStorage.getItem(STORAGE_KEY));
+  },
+  updated() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(this.tasks))
+  }
 }
 </script>
 
