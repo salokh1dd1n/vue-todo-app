@@ -1,6 +1,7 @@
 <template>
   <v-container>
     <Form v-model="task" :create-task="createTask"></Form>
+    <TodoFilter></TodoFilter>
     <v-card class="mb-5" v-for="task in tasks" :key="task.id" ref="task">
       <v-list-item>
         <v-list-item-content>
@@ -32,15 +33,15 @@
 
 <script>
 import Form from "../components/todo/Form";
+import TodoFilter from "../components/todo/Filter";
 
 const STORAGE_KEY = "todo-storage";
 export default {
   name: "ToDo",
-  components: {Form},
+  components: {Form, TodoFilter},
   data() {
     return {
       task: "",
-      test: '',
       tasks: [
         {
           id: 1,
@@ -67,10 +68,9 @@ export default {
         title: this.task,
         completed: false
       }
-      console.log(this.task);
-      this.tasks.unshift(newTask)
-      this.task = "";
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(this.tasks))
+        this.tasks.unshift(newTask)
+        this.task = "";
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(this.tasks))
     },
     removeTask(id) {
       let item = this.tasks.findIndex(task => task.id === id);
