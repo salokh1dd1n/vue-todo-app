@@ -1,14 +1,6 @@
 <template>
   <v-container>
-    <v-form @submit.prevent="createTask">
-      <v-text-field
-          v-model="task"
-          label="Введите название дела"
-          outlined
-          clearable
-      >
-      </v-text-field>
-    </v-form>
+    <Form v-model="task" :create-task="createTask"></Form>
     <v-card class="mb-5" v-for="task in tasks" :key="task.id" ref="task">
       <v-list-item>
         <v-list-item-content>
@@ -39,13 +31,16 @@
 </template>
 
 <script>
+import Form from "../components/todo/Form";
+
 const STORAGE_KEY = "todo-storage";
 export default {
   name: "ToDo",
+  components: {Form},
   data() {
     return {
       task: "",
-      test: true,
+      test: '',
       tasks: [
         {
           id: 1,
@@ -72,8 +67,8 @@ export default {
         title: this.task,
         completed: false
       }
+      console.log(this.task);
       this.tasks.unshift(newTask)
-      localStorage.name = this.task;
       this.task = "";
       localStorage.setItem(STORAGE_KEY, JSON.stringify(this.tasks))
     },
