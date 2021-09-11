@@ -18,7 +18,7 @@ import {validationMixin} from "vuelidate"
 import {required, minLength} from "vuelidate/lib/validators"
 
 export default {
-  name: "Form",
+  name: "TaskForm",
   props: ['value', 'createTask'],
   mixins: [validationMixin],
   computed: {
