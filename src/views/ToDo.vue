@@ -1,8 +1,8 @@
 <template>
   <v-container>
     <Form v-model="task" :create-task="createTask"></Form>
-    <TodoFilter></TodoFilter>
-    <v-card class="mb-5" v-for="task in tasks" :key="task.id" ref="task">
+    <TodoFilter v-model="filter"></TodoFilter>
+    <v-card class="mb-5" v-for="task in filteredTasks" :key="task.id" ref="task">
       <v-list-item>
         <v-list-item-content>
           <v-checkbox
@@ -42,23 +42,15 @@ export default {
   data() {
     return {
       task: "",
-      tasks: [
-        {
-          id: 1,
-          title: "Task #1",
-          completed: false,
-        },
-        {
-          id: 2,
-          title: "Task #2",
-          completed: true,
-        },
-        {
-          id: 3,
-          title: "Task #3",
-          completed: false,
-        }
-      ]
+      filter: 0,
+      tasks: []
+    }
+  },
+  computed: {
+    filteredTasks() {
+      if(this.filter === 1) return this.tasks.filter(task => (task.completed === true));
+      if(this.filter === 2) return this.tasks.filter(task => (task.completed === false))
+      return this.tasks
     }
   },
   methods: {
@@ -68,9 +60,9 @@ export default {
         title: this.task,
         completed: false
       }
-        this.tasks.unshift(newTask)
-        this.task = "";
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(this.tasks))
+      this.tasks.unshift(newTask)
+      this.task = "";
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(this.tasks))
     },
     removeTask(id) {
       let item = this.tasks.findIndex(task => task.id === id);
