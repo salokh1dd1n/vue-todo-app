@@ -1,7 +1,7 @@
 <template>
   <v-container>
-    <Form v-model="task" :create-task="createTask"></Form>
-    <TodoFilter v-model="filter"></TodoFilter>
+    <TaskForm v-model="task" :create-task="createTask" />
+    <TaskFilter v-model="filter" />
     <v-card class="mb-5" v-for="task in filteredTasks" :key="task.id" ref="task">
       <v-list-item>
         <v-list-item-content>
@@ -32,13 +32,13 @@
 </template>
 
 <script>
-import Form from "../components/todo/Form";
-import TodoFilter from "../components/todo/Filter";
+import TaskForm from "../components/todo/TaskForm";
+import TaskFilter from "../components/todo/TaskFilter";
 
 const STORAGE_KEY = "todo-storage";
 export default {
   name: "ToDo",
-  components: {Form, TodoFilter},
+  components: {TaskForm, TaskFilter},
   data() {
     return {
       task: "",
