@@ -18,7 +18,7 @@
 
 <script>
 export default {
-  name: "Filter",
+  name: "TaskFilter",
   props: ['value'],
 }
 </script>
