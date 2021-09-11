@@ -7,6 +7,7 @@
                   outlined
                   clearable
                   autocomplete="off"
+                  hide-details="auto"
     >
     </v-text-field>
   </v-form>
@@ -32,7 +33,6 @@ export default {
   methods: {
     submit() {
       this.$v.$touch();
-      console.log(this.$v.$invalid)
       if (!this.$v.$invalid)
         this.createTask();
     }
